@@ -10,15 +10,17 @@ result = None
 if oper == "+":
     result = lambda num1, num2: num1 + num2
     print(result(num1, num2))
-if oper == "-":
+elif oper == "-":
     result = lambda num1, num2: num1 - num2
     print(result(num1, num2))
-if oper == "*":
+elif oper == "*":
     result = lambda num1, num2: num1 * num2
     print(result(num1, num2))
-if oper == "/":
+elif oper == "/":
     result = lambda num1, num2: num1 / num2
     print(result(num1, num2))
+else:
+    print("такой операции нет")
 
 
 
