@@ -1,9 +1,8 @@
-n = [1, 2]
-for i in n:
+list_ = [1]
+for i in list_:
     num1, num2, oper = int(input("Введи 1 число: ")), int(input("Введи 2 число: ")), input("Введи опер\n"
-                                                                                           "или же можешь закончить работу\n"
-                                                                                           "Введи что угодно: ")
-    result = None
+                                                                         "или же можешь закончить работу\n""Введи что угодно: ")
+
     if oper == "+":
         result = lambda num1, num2: num1 + num2
     elif oper == "-":
@@ -19,6 +18,8 @@ for i in n:
     else:
         print("Работа закончина!!!")
         break
+    list_.append(i)
     print(f"Ваш результат : {result(num1, num2)}")
-    n.append(i)
+    print(list_)
+
 
