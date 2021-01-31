@@ -21,5 +21,3 @@ for i in list_:
     list_.append(i)
     print(f"Ваш результат : {result(num1, num2)}")
     print(list_)
-
-
