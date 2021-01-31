@@ -1,73 +1,112 @@
-n = int(input("введи 3-x значное число: "))
-s = int(input("введи 2-x значное число: "))
-print(s+n)
+import sys
 
-m = """1) ладья и ладья;
-2) ладья и  ферзь;
-3) ладья и  конь;
-4) ладья и  слон;
-5) ферзь и  ферзь;
-6) ферзь и ладья;
-7) ферзь и  конь;
-8) ферзь и  слон;
-9) конь и  конь;
-10) конь и ладья;
-11) конь и  ферзь;
-12) конь и  слон;
-13) слон и  слон;
-14) слон и  ферзь;
-15) слон и  конь;
-16) слон и ладья;
-17) король и  слон;
-18) король и  ферзь;
-19) король и  конь;
-20) король и ладья."""
-print(m)
+cxema = """
+    [ 1 | 2 | 3 ]
+    [ 4 | 5 | 6 ]
+    [ 7 | 8 | 9 ]
+     """
+print(cxema)
+g_d = {
+    1: ' ', 2: ' ', 3: ' ',
+    4: ' ', 5: ' ', 6: ' ',
+    7: ' ', 8: ' ', 9: ' '
+}
+WIN = [[1, 2, 3], [4, 5, 6], [7, 8, 9],
+       [1, 4, 7], [2, 5, 8], [3, 6, 9],
+       [3, 5, 7], [1, 5, 9]]
+user1 = input("Выбери x или o на англ: ")
 while True:
-    try:
-        n = int(input("Выбери вариант: "))
-        if n == 1:
-            print("1) ладья и ладья; WIN black")
-        elif n == 2:
-            print("2) ладья и ферзь; WIN black")
-        elif n == 3:
-            print("3) ладья и конь; WIN white")
-        elif n == 4:
-            print("4) ладья и слон; WIN black")
-        elif n == 5:
-            print("5) ферзь и  ферзь; WIN white")
-        elif n == 6:
-            print("6) ферзь и ладья; WIN white")
-        elif n == 7:
-            print("7) ферзь и  конь; Win white")
-        elif n == 8:
-            print("8) ферзь и  слон; Win white")
-        elif n == 9:
-            print("9) конь и  конь; Win white")
-        elif n == 10:
-            print("10) конь и ладья; Win ладья")
-        elif n == 11:
-            print("11) конь и  ферзь; Win black")
-        elif n == 12:
-            print("12) конь и  слон; Win black")
-        elif n == 13:
-            print("13) слон и  слон; Win white")
-        elif n == 14:
-            print("14) слон и  ферзь; Win white")
-        elif n == 15:
-            print("15) слон и  конь; Win white")
-        elif n == 16:
-            print("16) слон и ладья; Win white")
-        elif n == 17:
-            print("17) король и  слон; Win black")
-        elif n == 18:
-            print("18) король и  ферзь; Win black")
-        elif n == 19:
-            print("19) король и  конь; Win white")
-        elif n == 20:
-            print("20) король и ладья. Win black")
-        else:
-            print("попробуй еще раз")
+    if user1 == "x" or user1 == "o":
+        break
+    else:
+        user1 = input("Выбери x или o на англ: ")
+count = 1
+input_num1 = None
+input_num2 = None
+game_list = set()
+game_over = 0
+while True:
+    game_cart = f"""
+                [ {g_d[1]} | {g_d[2]} | {g_d[3]} ]   
+                [ {g_d[4]} | {g_d[5]} | {g_d[6]} ]   
+                [ {g_d[7]} | {g_d[8]} | {g_d[9]} ] 
+            """
 
-    except Exception:
+    for w, x in zip(WIN, g_d):
+        try:
+            if g_d[w[0]] == g_d[w[1]] == g_d[w[2]] != " ":
+                # print(w, x)
+                print(f"\n                  ВЫЙГРАЛ: {g_d[w[0]]}")
+                print(game_cart)
+                game_over += 1
+                sys.exit()
+
+        except Exception as ex:
+            print(ex)
+            pass
+
+    if game_over <= 0 and len(game_list) == 9:
+        print("\n                    НИЧЬЯ")
+    print(game_cart)
+    if count == 10:
+        break
+        # new_game = input("Если хочешь еще сыграть нажми 1\nесли нет то 2: ")
+        # if new_game == str(1):
+        #     game_list.clear()
+        #     print(game_list)
+        #     game_over = 0
+        #     count = 1
+        #     for d in g_d.items():
+        #         g_d[d[0]] = " "
+        #     pass
+        # else:
+        #     break
+
+    user2 = ["x", "o"]
+    if user1 == "x":
+        user2.remove("x")
+    elif user1 == "o":
+        user2.remove("o")
+    else:
         pass
+    # print(user2)
+
+    if count % 2 != 0:
+        while True:
+            try:
+                input_num1 = int(input(f"Введи куда поставить 1={user1}: "))
+                if input_num1 not in game_list and 0 < input_num1 <= 9:
+                    count += 1
+                    break
+                elif input_num1 in game_list:
+                    print("Это место уже занято")
+                    pass
+            except ValueError:
+                print("Нет такого места попробуй еще раз")
+                pass
+
+    elif count % 2 == 0:
+        while True:
+            try:
+                input_num2 = int(input(f"Введи куда поставить 2={user2[0]}: "))
+                if input_num2 not in game_list and 0 < input_num1 <= 9:
+                    count += 1
+                    break
+                elif input_num2 in game_list:
+                    print("Это место уже занято")
+                    pass
+            except ValueError:
+                print("Нет такого места попробуй еще раз")
+                pass
+
+    for i in g_d:
+        if input_num1 == i:
+            game_list.add(i)
+            g_d[i] = user1
+        elif input_num2 == i:
+            game_list.add(i)
+            g_d[i] = user2[0]
+
+    # print(game_list)
+    # print(g_d)
+    # print(count)
